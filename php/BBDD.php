@@ -26,7 +26,7 @@
 		}
 		
 		$usuario=null;
-        $sql ="select ID, Nombre, Email, Password from Usuarios where Email = '$email'";
+        $sql ="select ID, Nombre, Email, Password from usuarios where Email = '$email'";
         $rs = mysqli_query($connn, $sql);
 
         if(mysqli_num_rows($rs)>0){
@@ -55,7 +55,7 @@
 		
 		else{
 			
-			$sql="Insert into Usuarios (Nombre, Email, Password) values ('$nombre', '$email', '$pass')";
+			$sql="Insert into usuarios (Nombre, Email, Password) values ('$nombre', '$email', '$pass')";
 			 
 			mysqli_query($connn, $sql);
 			
