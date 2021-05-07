@@ -55,7 +55,12 @@ function rellenarDatosUrl() {
         }
     }
 }
-
+	var ubicacionBuscar = "";
+    var fechaBuscar = "";
+    var mesaBuscar = "";
+    var precioBuscar = "";
+    var turnoBuscar = "";
+	
 function cargarTxokosFiltrados() {
 
     //Url parametros
@@ -64,11 +69,11 @@ function cargarTxokosFiltrados() {
 
 
     //Datos pasados en la url
-    const ubicacionBuscar = urlParams.get('UbicacionBuscar');
-    const fechaBuscar = urlParams.get('fechaBuscar');
-    const mesaBuscar = urlParams.get('mesaBuscar');
-    const precioBuscar = urlParams.get('precioBuscar');
-    const turnoBuscar = urlParams.get('turnoBuscar');
+    ubicacionBuscar = urlParams.get('UbicacionBuscar');
+    fechaBuscar = urlParams.get('fechaBuscar');
+    mesaBuscar = urlParams.get('mesaBuscar');
+    precioBuscar = urlParams.get('precioBuscar');
+    turnoBuscar = urlParams.get('turnoBuscar');
 
     var datos = "accion=filtraTxokos&ubicacion=" + ubicacionBuscar + "&fecha=" + fechaBuscar + "&num_mesas=" + mesaBuscar + "&precio=" + precioBuscar + "&turno=" + turnoBuscar;
     $.ajax({
@@ -80,7 +85,7 @@ function cargarTxokosFiltrados() {
 }
 
 function procesarTxokosFiltrados(data) {
-    alert(data)
+    //alert(data)
     var resp = JSON.parse(data);
     if (resp.txokos.length == 0) {
         alert("No se encontro ningun txoko disponible con el filtro de busqueda introducido")
@@ -126,7 +131,7 @@ function cartaTxoko(idTxoko, iDMesa, esDestacado) {
                             </div>`
                 var listaTxokosFiltrados = $("#listaTxokoFiltrados");
                 listaTxokosFiltrados.append(carta);
-                alert("Destacado");
+                //alert("Destacado");
             } else {
                 var carta = `<div class="card mb-3">
                                 <div class="row">
@@ -138,20 +143,33 @@ function cartaTxoko(idTxoko, iDMesa, esDestacado) {
                                             <h5 class="card-title">${nombreTxoko}</h5>
                                             <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                                             <p class="card-text"><small class="text-muted">Precio Reserva: ${precio_reservaTxoko}€</small></p>
-                                            <a class="btn btn-primary col-md-12" onclick=guardarReserva('` + nombreTxoko + `')>Confirmar</a>
-                                        </div>
+ 					<!--<a class="btn btn-primary col-md-12" onclick="guardarReserva('${nombreTxoko}', '${valoracionTxoko}', '${iDMesa}','${precio_reservaTxoko}')">Confirmar</a>-->
+                                                                                   
+					<button id="short" class="btn btn-primary col-md-12" >Confirmar</button>                                     
+				
                                     </div>
                                 </div>
                             </div>`
                 var listaTxokosFiltrados = $("#listaTxokoFiltrados");
                 listaTxokosFiltrados.append(carta);
-                alert(nombreTxoko);
-                alert("No Destacado");
+               // alert(nombreTxoko);
+                //alert("No Destacado");
             }
         }
     });
 }
 
-function guardarReserva(nombreTxoko) {
-    alert(nombreTxoko);
+function guardarReserva(nombreTxoko, valoracionTxoko, idMesa, precioReserva) {
+		
+	
+	
+	let url  = "pago.html?ubicacion="+ubicacionBuscar+"&nombreTxoko="+nombreTxoko+"&valoracionTxoko="+valoracionTxoko+"&fechaBuscar="+fechaBuscar+"&idMesa="+idMesa+"&precioReserva="+precioReserva+"&turnoBuscar="+turnoBuscar;
+	
+	
+	
+	window.location.href = url;
+	
+	
+	
+	
 }
