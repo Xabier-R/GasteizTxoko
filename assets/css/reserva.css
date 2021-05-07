@@ -1,0 +1,190 @@
+header.masthead_reserva {
+    padding-top: 10rem;
+    padding-bottom: calc(10rem - 4.5rem);
+    background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%), url("../img/restaurante-interior.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+}
+
+.color {
+    background-color: #f5f5f5;
+}
+
+.bordesFiltrov2 {
+    border: 5px solid orange;
+}
+
+
+/* Carousel cartas */
+
+@media (max-width: 768px) {
+    .carousel-inner .carousel-item>div {
+        display: none;
+    }
+    .carousel-inner .carousel-item>div:first-child {
+        display: block;
+    }
+}
+
+.carousel-inner .carousel-item.active,
+.carousel-inner .carousel-item-next,
+.carousel-inner .carousel-item-prev {
+    display: flex;
+}
+
+
+/* Sacar 3 cardas*/
+
+@media (min-width: 768px) {
+    .carousel-inner .carousel-item-right.active,
+    .carousel-inner .carousel-item-next {
+        transform: translateX(33.333%);
+    }
+    .carousel-inner .carousel-item-left.active,
+    .carousel-inner .carousel-item-prev {
+        transform: translateX(-33.333%);
+    }
+}
+
+.carousel-inner .carousel-item-right,
+.carousel-inner .carousel-item-left {
+    transform: translateX(0);
+}
+
+
+/* Cartas Sitios*/
+
+.ciudades .padded {
+    padding: 100px 0;
+}
+
+.ciudades .avatar {
+    width: 30px;
+}
+
+.ciudades .avatar-bordered {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    border: white 1px solid;
+}
+
+.ciudades .avatar-large {
+    width: 50px;
+}
+
+.ciudades .banner {
+    color: white;
+    text-align: center;
+    height: 100vh;
+    background-size: cover !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ciudades .banner h1 {
+    font-size: 50px;
+    font-weight: bold;
+    text-shadow: 0px 1px rgba(0, 0, 0, 0.2);
+}
+
+.ciudades .banner p {
+    font-size: 25px;
+    font-weight: lighter;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 50px;
+}
+
+.ciudades .card {
+    height: 250px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    background-size: cover !important;
+    color: white;
+    position: relative;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.ciudades .card-user {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.ciudades .card-category {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 20px;
+}
+
+.ciudades .card-description {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+
+.ciudades .card-description h2 {
+    font-size: 22px;
+}
+
+.ciudades .card-description p {
+    font-size: 15px;
+}
+
+.ciudades .card-link {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 2;
+    background: black;
+    opacity: 0;
+}
+
+.ciudades .card-link:hover {
+    opacity: 0.1;
+}
+
+.ciudades .features img {
+    width: 100px;
+}
+
+.ciudades .features h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.ciudades .features p {
+    font-size: 15px;
+    font-weight: lighter;
+}
+
+.destacado {
+    border: 10px outset rgba(237, 181, 78, 0.53);
+    border-radius: 10px;
+}
+
+
+/* Valoracion Txoko */
+
+#valoracion span {
+    max-width: 150px;
+    margin: auto;
+}
+
+#valoracion,
+#valoracion span {
+    display: block;
+    background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/747/star-o-white.svg) 0 0 repeat-x;
+    /* width of a star multiplied by 5 */
+    height: 30px;
+    /* the height of the star */
+    background-size: 30px 30px;
+}
+
+#valoracion span {
+    background-position: 0 0;
+    background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/747/star.svg);
+}
