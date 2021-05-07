@@ -39,7 +39,7 @@
       </nav>
       <!-- Masthead-->
       <header class="masthead">
-         <div class="container h-100"  style="margin-top: 100px;">
+         <div class="container h-100"  style="margin-top: 15px;">
             <div class="card login-card" >
                <div class="row no-gutters ">
                   <div class="col-md-5">
@@ -47,27 +47,39 @@
                   </div>
                   <div class="col-md-7">
                      <div class="card-body">
-						<div id="mensajeError" class="alert alert-danger" role="alert" hidden>
-							Ha ocurrido un error.
-						</div>
                         <div class="brand-wrapper">
                            <img src="assets/img/logo.svg" alt="logo" class="logo">
                         </div>
-                        <p class="login-card-description">Iniciar Sesión</p>
+						<div id="mensajeError" class="alert alert-danger" role="alert" hidden>
+							Ha ocurrido un error.
+						</div>
+						<div id="mensajeBien" class="alert alert-success" role="alert" hidden>
+							Registro completado <a href="login.html" class="alert-link">Inicia sesión</a>.
+						</div>
+						
+                        <p class="login-card-description">Registrase</p>
                         <form action="#!">
+							<div class="form-group">
+                              <label for="name" class="sr-only">Nombre y Apellido</label>
+                              <input type="name" name="name" id="name" class="form-control" placeholder="Nombre y Apellido" required> 
+                           </div>
                            <div class="form-group">
                               <label for="email" class="sr-only">Email</label>
-                              <input type="email" name="email" id="email" class="form-control" placeholder="Dirección Email">
+                              <input type="email" name="email" id="email" class="form-control" placeholder="Direccion Email" required>
                            </div>
                            <div class="form-group mb-4">
                               <label for="password" class="sr-only">Contraseña</label>
-                              <input type="password" name="password" id="password" class="form-control" placeholder="***********">
+                              <input type="password" name="password" id="password" class="form-control" placeholder="Contraseña *" required>
                            </div>
-                           <input name="login" id="login" class="btn btn-block login-btn mb-4" type="button" onclick="logearse()" value="Iniciar sesión">
+						   <div class="form-group mb-4">
+                              <label for="password" class="sr-only">Repetir Contraseña</label>
+                              <input type="password" name="passwordCheck" id="passwordCheck" class="form-control" placeholder="Repetir Contraseña *" required>
+                           </div>
+                           <input id="submit" class="btn btn-block login-btn mb-4" type="button" onclick="registrarse()" value="Registrarse">
                         </form>
-                        <a href="#!" class="forgot-password-link">¿Contraseña olvidada?</a>
-                        <p class="login-card-footer-text">¿No tienes una cuenta?  <b><a href="registro.html" class="text-reset"> Registrate</a> </b></p>
-                        <nav class="login-card-footer-nav">
+                        <p class="login-card-footer-text">¿Ya tienes una cuenta?  <b><a href="login.html" class="text-reset"> Inicia Sesión</a> </b></p>
+                        <small>* La contraseña debe contener una letra mayuscula, una letra minuscula, un numero y un minimo de 6 caracteres.</small>
+						<nav class="login-card-footer-nav pt-3">
                            <a href="#!">Terminos de uso.</a>
                            <a href="#!">Politica de privacidad.</a>
                         </nav>
@@ -90,7 +102,7 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
       <!-- Core theme JS-->
       <script src="js/scripts.js"></script>
-	  
-	   <script src="js/login.js"></script>
+	  <script src="js/registro.js"></script>
+
    </body>
 </html>
