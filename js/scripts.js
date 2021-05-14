@@ -83,3 +83,32 @@ $('.carousel .carousel-item').each(function() {
         next.children(':first-child').clone().appendTo($(this));
     }
 });
+
+
+
+$( document ).ready(function() {
+   
+	if(sessionStorage.getItem('Nombre')){
+	   
+		$("#menuLogin").attr("hidden",true);
+	    $("#menuNombre").html(sessionStorage.getItem('Nombre'));
+	}
+	else{
+	   $('#menuLoginNombre').hide();
+	   
+	}
+   
+   
+});
+
+function desconexion(){
+
+    sessionStorage.removeItem('ID');
+    sessionStorage.removeItem('Nombre');
+    sessionStorage.removeItem('Email');
+
+
+    window.location.href = "index.html";
+}
+
+

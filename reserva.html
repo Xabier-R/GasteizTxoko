@@ -31,11 +31,22 @@
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto my-2 my-lg-0">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="index.html">Acerca de</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">Acerca de</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services">Servicios</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contacto</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="login.html">Iniciar Sesion</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#">Reserva</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="reserva.html">Reserva</a></li>
+					<li class="nav-item" id="menuLogin"><a class="nav-link js-scroll-trigger" href="login.html">Iniciar Sesion</a></li>
+					<li class="nav-item dropdown" id="menuLoginNombre" >
+						<a class="nav-link dropdown-toggle" id="menuNombre" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						  
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						  <a class="dropdown-item" href="#">Mis reservas</a>
+						  <div class="dropdown-divider"></div>
+						  <a class="dropdown-item" href="#" onclick="desconexion()">Desconexión</a>
+						</div>
+					</li>
+
                 </ul>
             </div>
         </div>

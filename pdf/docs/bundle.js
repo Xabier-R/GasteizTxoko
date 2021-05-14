@@ -311,7 +311,198 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ 
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var jspdf_yworks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jspdf-yworks */ \"./node_modules/jspdf-yworks/dist/jspdf.min.js\");\n/* harmony import */ var jspdf_yworks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jspdf_yworks__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _fonts_WorkSans_normal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../fonts/WorkSans-normal */ \"./src/fonts/WorkSans-normal.js\");\n/* harmony import */ var _fonts_WorkSans_bold__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../fonts/WorkSans-bold */ \"./src/fonts/WorkSans-bold.js\");\n/* harmony import */ var svg2pdf_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! svg2pdf.js */ \"./node_modules/svg2pdf.js/dist/svg2pdf.min.js\");\n/* harmony import */ var svg2pdf_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(svg2pdf_js__WEBPACK_IMPORTED_MODULE_3__);\n/* harmony import */ var _fetchSvg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./fetchSvg */ \"./src/print/fetchSvg.js\");\n/* harmony import */ var _pdf_addressSender__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pdf/addressSender */ \"./src/print/pdf/addressSender.js\");\n/* harmony import */ var _pdf_addressCustomer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pdf/addressCustomer */ \"./src/print/pdf/addressCustomer.js\");\n/* harmony import */ var _pdf_heading__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pdf/heading */ \"./src/print/pdf/heading.js\");\n/* harmony import */ var _pdf_table__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pdf/table */ \"./src/print/pdf/table.js\");\n/* harmony import */ var _pdf_totals__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pdf/totals */ \"./src/print/pdf/totals.js\");\n/* harmony import */ var _pdf_text__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./pdf/text */ \"./src/print/pdf/text.js\");\n/* harmony import */ var _pdf_footer__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./pdf/footer */ \"./src/print/pdf/footer.js\");\n/* harmony import */ var _pdf_logo__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./pdf/logo */ \"./src/print/pdf/logo.js\");\n//import jsPDF from '../../node_modules/jspdf-yworks/dist/jspdf.debug';\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ((printData) => {\n    Object(_fonts_WorkSans_normal__WEBPACK_IMPORTED_MODULE_1__[\"default\"])();\n    Object(_fonts_WorkSans_bold__WEBPACK_IMPORTED_MODULE_2__[\"default\"])();\n\n    const doc = new jspdf_yworks__WEBPACK_IMPORTED_MODULE_0___default.a('p', 'pt');\n\n    doc.setFont('WorkSans');\n\n    // <><>><><>><>><><><><><>>><><<><><><><>\n    // SETTINGS\n    // <><>><><>><>><><><><><>>><><<><><><><>\n\n    const fontSizes = {\n        TitleFontSize:14,\n        SubTitleFontSize:12,\n        NormalFontSize:10,\n        SmallFontSize:9\n    };\n    const lineSpacing = 12;\n\n    let startY = 130; // bit more then 45mm\n\n    const pageHeight = doc.internal.pageSize.height;\n    const pageWidth = doc.internal.pageSize.width;\n    const pageCenterX = pageWidth / 2;\n\n    // <><>><><>><>><><><><><>>><><<><><><><>\n    // COMPONENTS\n    // <><>><><>><>><><><><><>>><><<><><><><>\n\n    // <><>><><>><>><><><><><>>><><<><><><><>\n    // Background init\n    // need to print the background before other elements get printed on\n    Object(_fetchSvg__WEBPACK_IMPORTED_MODULE_4__[\"default\"])(doc, 'img/background.svg').then((svg) => {\n        if (svg) {\n            doc.setPage(1);\n\n            svg2pdf_js__WEBPACK_IMPORTED_MODULE_3___default()(svg, doc, {\n                xOffset: -70,\n                yOffset: 250\n            });\n\n\n            localStorage.setItem('bgSvg', new XMLSerializer().serializeToString(svg));\n        }\n\n        // <><>><><>><>><><><><><>>><><<><><><><>\n        // Sender's address\n\n        startY = Object(_pdf_addressSender__WEBPACK_IMPORTED_MODULE_5__[\"default\"])(doc, printData.addressSender, startY, fontSizes.NormalFontSize, lineSpacing);\n\n        const addressSvgLoaded = Object(_fetchSvg__WEBPACK_IMPORTED_MODULE_4__[\"default\"])(doc, 'img/address-bar.svg').then((svg) => {\n            if (svg) {\n                doc.setPage(1);\n\n                svg2pdf_js__WEBPACK_IMPORTED_MODULE_3___default()(svg, doc, {\n                    xOffset: 225,\n                    yOffset: 136,\n                    scale: 0.45 // scaling for finer details\n                });\n            }\n        });\n        // <><>><><>><>><><><><><>>><><<><><><><>\n        // Customer address\n\n        startY += 10;\n        startY = Object(_pdf_addressCustomer__WEBPACK_IMPORTED_MODULE_6__[\"default\"])(doc, printData.address, startY, fontSizes.NormalFontSize, lineSpacing);\n\n        // <><>><><>><>><><><><><>>><><<><><><><>\n        // INVOICE DATA\n        // <><>><><>><>><><><><><>>><><<><><><><>\n\n        // <><>><><>><>><><><><><>>><><<><><><><>\n        // Invoicenumber, -date and subject\n\n        startY = Object(_pdf_heading__WEBPACK_IMPORTED_MODULE_7__[\"default\"])(doc, printData, startY, fontSizes, lineSpacing);\n\n        // <><>><><>><>><><><><><>>><><<><><><><>\n        // Table with items\n\n        startY = Object(_pdf_table__WEBPACK_IMPORTED_MODULE_8__[\"default\"])(doc, printData, startY, fontSizes.NormalFontSize, lineSpacing);\n\n        // <><>><><>><>><><><><><>>><><<><><><><>\n        // Totals\n\n        startY = Object(_pdf_totals__WEBPACK_IMPORTED_MODULE_9__[\"default\"])(doc, printData, startY, fontSizes.NormalFontSize, lineSpacing);\n\n        // <><>><><>><>><><><><><>>><><<><><><><>\n        // Text\n\n        startY = Object(_pdf_text__WEBPACK_IMPORTED_MODULE_10__[\"default\"])(doc, printData.invoice.text, startY, fontSizes.NormalFontSize, lineSpacing);\n\n        // <><>><><>><>><><><><><>>><><<><><><><>\n        // Footer\n\n        Object(_pdf_footer__WEBPACK_IMPORTED_MODULE_11__[\"default\"])(doc, printData, fontSizes.SmallFontSize, lineSpacing);\n\n        // <><>><><>><>><><><><><>>><><<><><><><>\n        // REPEATED PAGE COMPONENTS\n        // <><>><><>><>><><><><><>>><><<><><><><>\n\n        const pageNr = doc.internal.getNumberOfPages();\n\n        // <><>><><>><>><><><><><>>><><<><><><><>\n        // Fold Marks\n\n        const foldX = 12;\n        const foldMarksY = [288, 411, 585];\n        let n = 0;\n\n        while (n < pageNr) {\n            n++;\n\n            doc.setPage(n);\n\n            doc.setDrawColor(157, 183, 128);\n            doc.setLineWidth(0.5);\n\n            foldMarksY.map(valueY => {\n                doc.line(foldX, valueY, foldX + 23, valueY);\n            });\n        }\n\n        // <><>><><>><>><><><><><>>><><<><><><><>\n        // Logo\n\n        const logoLoaded = Object(_pdf_logo__WEBPACK_IMPORTED_MODULE_12__[\"default\"])(doc, printData, pageNr);\n\n        // <><>><><>><>><><><><><>>><><<><><><><>\n        // Page Numbers\n\n        if (pageNr > 1) {\n            n = 0;\n            doc.setFontSize(fontSizes.SmallFontSize);\n\n            while (n < pageNr) {\n                n++;\n\n                doc.setPage(n);\n\n                doc.text(n + ' / ' + pageNr, pageCenterX, pageHeight - 20, 'center');\n            }\n        }\n\n        // <><>><><>><>><><><><><>>><><<><><><><>\n        // PRINT\n        // <><>><><>><>><><><><><>>><><<><><><><>\n\n        Promise.all([addressSvgLoaded, logoLoaded]).then(() => {\n            doc.save(\"invoice.pdf\");\n        });\n    });\n});\n\n\n//# sourceURL=webpack:///./src/print/index.js?");
+__webpack_require__.r(__webpack_exports__);
+var jspdf_yworks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("./node_modules/jspdf-yworks/dist/jspdf.min.js");
+var jspdf_yworks__WEBPACK_IMPORTED_MODULE_0___default = __webpack_require__.n(jspdf_yworks__WEBPACK_IMPORTED_MODULE_0__);
+var _fonts_WorkSans_normal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("./src/fonts/WorkSans-normal.js");
+var _fonts_WorkSans_bold__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("./src/fonts/WorkSans-bold.js");
+var svg2pdf_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("./node_modules/svg2pdf.js/dist/svg2pdf.min.js");
+var svg2pdf_js__WEBPACK_IMPORTED_MODULE_3___default = __webpack_require__.n(svg2pdf_js__WEBPACK_IMPORTED_MODULE_3__);
+var _fetchSvg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("./src/print/fetchSvg.js");
+var _pdf_addressSender__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("./src/print/pdf/addressSender.js");
+var _pdf_addressCustomer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("./src/print/pdf/addressCustomer.js");
+var _pdf_heading__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("./src/print/pdf/heading.js");
+var _pdf_table__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("./src/print/pdf/table.js");
+var _pdf_totals__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("./src/print/pdf/totals.js");
+var _pdf_text__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("./src/print/pdf/text.js");
+var _pdf_footer__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("./src/print/pdf/footer.js");
+var _pdf_logo__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("./src/print/pdf/logo.js");
+//import jsPDF from '../../node_modules/jspdf-yworks/dist/jspdf.debug';
+
+
+
+
+__webpack_exports__["default"] = ((printData) => {
+    Object(_fonts_WorkSans_normal__WEBPACK_IMPORTED_MODULE_1__["default"])();
+    Object(_fonts_WorkSans_bold__WEBPACK_IMPORTED_MODULE_2__["default"])();
+
+    const doc = new jspdf_yworks__WEBPACK_IMPORTED_MODULE_0___default.a('p', 'pt');
+
+    doc.setFont('WorkSans');
+
+    // <><>><><>><>><><><><><>>><><<><><><><>
+    // SETTINGS
+    // <><>><><>><>><><><><><>>><><<><><><><>
+
+    const fontSizes = {
+        TitleFontSize: 14,
+        SubTitleFontSize: 12,
+        NormalFontSize: 10,
+        SmallFontSize: 9
+    };
+    const lineSpacing = 12;
+
+    let startY = 130; // bit more then 45mm
+
+    const pageHeight = doc.internal.pageSize.height;
+    const pageWidth = doc.internal.pageSize.width;
+    const pageCenterX = pageWidth / 2;
+
+    // <><>><><>><>><><><><><>>><><<><><><><>
+    // COMPONENTS
+    // <><>><><>><>><><><><><>>><><<><><><><>
+
+    // <><>><><>><>><><><><><>>><><<><><><><>
+    // Background init
+    // need to print the background before other elements get printed on
+    Object(_fetchSvg__WEBPACK_IMPORTED_MODULE_4__["default"])(doc, 'img/background.svg').then((svg) => {
+        if (svg) {
+            doc.setPage(1);
+
+            svg2pdf_js__WEBPACK_IMPORTED_MODULE_3___default()(svg, doc, {
+                xOffset: -70,
+                yOffset: 250
+            });
+
+
+            localStorage.setItem('bgSvg', new XMLSerializer().serializeToString(svg));
+        }
+
+        // <><>><><>><>><><><><><>>><><<><><><><>
+        // Sender's address
+
+        startY = Object(_pdf_addressSender__WEBPACK_IMPORTED_MODULE_5__["default"])(doc, printData.addressSender, startY, fontSizes.NormalFontSize, lineSpacing);
+
+        const addressSvgLoaded = Object(_fetchSvg__WEBPACK_IMPORTED_MODULE_4__["default"])(doc, 'img/address-bar.svg').then((svg) => {
+            if (svg) {
+                doc.setPage(1);
+
+                svg2pdf_js__WEBPACK_IMPORTED_MODULE_3___default()(svg, doc, {
+                    xOffset: 225,
+                    yOffset: 136,
+                    scale: 0.45 // scaling for finer details
+                });
+            }
+        });
+        // <><>><><>><>><><><><><>>><><<><><><><>
+        // Customer address
+
+        startY += 10;
+        startY = Object(_pdf_addressCustomer__WEBPACK_IMPORTED_MODULE_6__["default"])(doc, printData.address, startY, fontSizes.NormalFontSize, lineSpacing);
+
+        // <><>><><>><>><><><><><>>><><<><><><><>
+        // INVOICE DATA
+        // <><>><><>><>><><><><><>>><><<><><><><>
+
+        // <><>><><>><>><><><><><>>><><<><><><><>
+        // Invoicenumber, -date and subject
+
+        startY = Object(_pdf_heading__WEBPACK_IMPORTED_MODULE_7__["default"])(doc, printData, startY, fontSizes, lineSpacing);
+
+        // <><>><><>><>><><><><><>>><><<><><><><>
+        // Table with items
+
+        startY = Object(_pdf_table__WEBPACK_IMPORTED_MODULE_8__["default"])(doc, printData, startY, fontSizes.NormalFontSize, lineSpacing);
+
+        // <><>><><>><>><><><><><>>><><<><><><><>
+        // Totals
+
+        startY = Object(_pdf_totals__WEBPACK_IMPORTED_MODULE_9__["default"])(doc, printData, startY, fontSizes.NormalFontSize, lineSpacing);
+
+        // <><>><><>><>><><><><><>>><><<><><><><>
+        // Text
+
+        startY = Object(_pdf_text__WEBPACK_IMPORTED_MODULE_10__["default"])(doc, printData.invoice.text, startY, fontSizes.NormalFontSize, lineSpacing);
+
+        // <><>><><>><>><><><><><>>><><<><><><><>
+        // Footer
+
+        Object(_pdf_footer__WEBPACK_IMPORTED_MODULE_11__["default"])(doc, printData, fontSizes.SmallFontSize, lineSpacing);
+
+        // <><>><><>><>><><><><><>>><><<><><><><>
+        // REPEATED PAGE COMPONENTS
+        // <><>><><>><>><><><><><>>><><<><><><><>
+
+        const pageNr = doc.internal.getNumberOfPages();
+
+        // <><>><><>><>><><><><><>>><><<><><><><>
+        // Fold Marks
+
+        const foldX = 12;
+        const foldMarksY = [288, 411, 585];
+        let n = 0;
+
+        while (n < pageNr) {
+            n++;
+
+            doc.setPage(n);
+
+            doc.setDrawColor(157, 183, 128);
+            doc.setLineWidth(0.5);
+
+            foldMarksY.map(valueY => {
+                doc.line(foldX, valueY, foldX + 23, valueY);
+            });
+        }
+
+        // <><>><><>><>><><><><><>>><><<><><><><>
+        // Logo
+
+        const logoLoaded = Object(_pdf_logo__WEBPACK_IMPORTED_MODULE_12__["default"])(doc, printData, pageNr);
+
+        // <><>><><>><>><><><><><>>><><<><><><><>
+        // Page Numbers
+
+        if (pageNr > 1) {
+            n = 0;
+            doc.setFontSize(fontSizes.SmallFontSize);
+
+            while (n < pageNr) {
+                n++;
+
+                doc.setPage(n);
+
+                doc.text(n + ' / ' + pageNr, pageCenterX, pageHeight - 20, 'center');
+            }
+        }
+
+        // <><>><><>><>><><><><><>>><><<><><><><>
+        // PRINT
+        // <><>><><>><>><><><><><>>><><<><><><><>
+		let email ="";
+		if(sessionStorage.getItem('Email')!=""){
+			email=sessionStorage.getItem('Email');
+		}
+
+		var pdf = "pdf="+doc.output('datauri')+", "+
+				  "email="+ email;
+		//console.log(pdf);
+		$.ajax({
+			url: 'php/phpmailer/sendemailReserva.php',
+			type: 'POST',
+			data:{
+				pdf: doc.output('datauri'),
+				email: email
+			}
+		});
+        Promise.all([addressSvgLoaded, logoLoaded]).then(() => {
+            doc.save("factura.pdf");
+        });
+    });
+});
+
+
+//# sourceURL=webpack:///./src/print/index.js?
 
 /***/ }),
 

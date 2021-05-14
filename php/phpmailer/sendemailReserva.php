@@ -9,10 +9,24 @@ $mail = new PHPMailer(true);
 
 $alert = '';
 
-if(isset($_POST['enviarAvisos'])){
+if(isset($_POST['pdf'])){
   //$name = $_POST['name'];
   //$email = $_POST['email'];
   //$message = $_POST['message'];
+
+    $pdfStr = str_replace('data:application/pdf;filename=generated.pdf;base64,','',$_POST['pdf']);
+    $pdfStr = str_replace(' ','+',$pdfStr);
+    //$pdfStr = str_replace('+','',$pdfStr);
+    $pdf_decoded = base64_decode ($pdfStr);
+    //Write data back to pdf file
+    $pdf = fopen ('factura.pdf','w');
+    fwrite ($pdf,$pdf_decoded);
+    //close output file
+    fclose ($pdf);
+
+
+	$email = $_POST['email'];
+
 
   try{
     $mail->CharSet = 'UTF-8';
@@ -25,17 +39,23 @@ if(isset($_POST['enviarAvisos'])){
     $mail->Port = '587';
 
     $mail->setFrom('info@gasteiztxoko.es'); // Gmail address which you used as SMTP server
-    $mail->addAddress('xabier.revuelta@gmail.com'); // Email address where you want to receive emails (you can use any of your gmail address including the gmail address which you used as SMTP server)
+    $mail->addAddress($email); // Email address where you want to receive emails (you can use any of your gmail address including the gmail address which you used as SMTP server)
 
     $mail->isHTML(true);
-    $mail->Subject = '[Completa tu registro]';
+    $mail->Subject = 'Pedido';
 
     //Obtengo los datos del fichero html
-    $shtml = file_get_contents('confirmacionregistro.html');
+    $shtml = file_get_contents('confirmacionCompra.html');
 
     //Reemplazar los datos del fichero html para personalizarlo
-    $cuerpo = str_replace('confirmarcuentausuario','www.google.es',$shtml);
+
+	$cuerpo = $shtml;
+
     $mail->Body = $cuerpo;
+
+    $file_to_attach = 'factura.pdf';
+
+    $mail->AddAttachment( $file_to_attach , 'factura.pdf' );
 
     $mail->send();
     $alert = '<div class="alert-success">
